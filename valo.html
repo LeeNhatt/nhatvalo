@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top Vandal Skins (Valorant)</title>
+  <style>
+    :root {
+      --bg: #0b0f17; --panel:#121826; --muted:#9aa4b2; --text:#e5e7eb; --brand:#7c5cff; --card:#0f1624;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 500px at 80% -80%, #20304e 0%, transparent 60%), var(--bg);color:var(--text)}
+    header{position:sticky;top:0;background:rgba(18,24,38,.8);backdrop-filter:blur(10px);border-bottom:1px solid #1f2937;z-index:10}
+    .wrap{max-width:1100px;margin:auto;padding:18px}
+    h1{font-size:clamp(22px,4vw,32px);margin:0 0 8px}
+    .tools{display:grid;gap:10px;grid-template-columns:1fr 140px 160px}
+    input,select{background:#0e1524;border:1px solid #1f2937;color:var(--text);padding:10px 12px;border-radius:12px;outline:none}
+    main{max-width:1100px;margin:20px auto;padding:0 18px 40px}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid #1f2937;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.2);transition:transform .15s ease, box-shadow .15s ease}
+    .card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+    .thumb{aspect-ratio: 16/9; width:100%; display:block; background:#0c1220}
+    .meta{padding:12px 14px 14px}
+    .title{font-weight:700;font-size:16px;margin:0 0 6px}
+    .badge{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #2a3550;color:var(--muted);margin-right:6px}
+    .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .stars{letter-spacing:2px; font-size:14px}
+    .tag{font-size:12px;color:var(--muted)}
+    footer{color:#98a2b3;font-size:12px;text-align:center;margin:20px 0 40px}
+    .empty{opacity:.7;text-align:center;padding:40px}
+    .credits{color:#aeb7c4}
+    .hl{color:var(--brand);font-weight:600}
+    @media (max-width:720px){.tools{grid-template-columns:1fr 1fr;}.tools select:last-child{grid-column:1/-1}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Top Vandal Skins (Valorant)</h1>
+      <div class="tools">
+        <input id="q" placeholder="Tìm tên skin… (vd: Reaver)" />
+        <select id="sort">
+          <option value="rating">Sắp xếp: Điểm yêu thích</option>
+          <option value="year">Sắp xếp: Năm phát hành</option>
+          <option value="tier">Sắp xếp: Bậc giá (loại)</option>
+        </select>
+        <select id="filter">
+          <option value="all">Lọc: Tất cả bậc</option>
+          <option value="Exclusive">Exclusive</option>
+          <option value="Ultra">Ultra</option>
+          <option value="Premium">Premium</option>
+          <option value="Deluxe">Deluxe</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden>Không tìm thấy skin phù hợp.</div>
+    <footer>
+      Danh sách tham khảo cộng đồng. Bạn có thể thay link ảnh thật của từng skin trong mảng <span class="hl">skins[]</span> bên dưới.<br/>
+      Mặc định ảnh dùng <span class="credits">placehold.co</span> để hiển thị tên skin.
+    </footer>
+  </main>
+
+  <script>
+    // \u{1F4D1} Dữ liệu mẫu: bạn có thể thay image bằng URL ảnh thật (jpg/png/webp) nếu muốn.
+    const skins = [
+      { name: "Prime Vandal", year: 2020, tier: "Premium", rating: 9.6, image: "https://placehold.co/640x360?text=Prime+Vandal" },
+      { name: "Reaver Vandal", year: 2020, tier: "Premium", rating: 9.7, image: "https://www.techworm.net/wp-content/uploads/2021/05/Reaver-Vandal-2048x948.pnghttps://placehold.co/640x360?text=Reaver+Vandal" },
+      { name: "RGX 11z Pro Vandal", year: 2021, tier: "Ultra", rating: 9.5, image: "https://placehold.co/640x360?text=RGX+11z+Pro+Vandal" },
+      { name: "Araxys Vandal", year: 2023, tier: "Exclusive", rating: 9.2, image: "https://placehold.co/640x360?text=Araxys+Vandal" },
+      { name: "Prelude to Chaos Vandal", year: 2022, tier: "Exclusive", rating: 9.3, image: "https://placehold.co/640x360?text=Prelude+to+Chaos+Vandal" },
+      { name: "Neptune Vandal", year: 2022, tier: "Premium", rating: 8.9, image: "https://placehold.co/640x360?text=Neptune+Vandal" },
+      { name: "Champions 2023 Vandal", year: 2023, tier: "Exclusive", rating: 9.1, image: "https://placehold.co/640x360?text=Champions+2023+Vandal" },
+      { name: "Sentinels of Light Vandal", year: 2021, tier: "Premium", rating: 8.8, image: "https://placehold.co/640x360?text=Sentinels+of+Light+Vandal" },
+      { name: "Magepunk Vandal", year: 2021, tier: "Premium", rating: 8.7, image: "https://placehold.co/640x360?text=Magepunk+Vandal" },
+      { name: "Ion 2.0 Vandal", year: 2022, tier: "Premium", rating: 8.9, image: "https://placehold.co/640x360?text=Ion+2.0+Vandal" }
+    ];
+
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const q = document.getElementById('q');
+    const sort = document.getElementById('sort');
+    const filter = document.getElementById('filter');
+
+    function render(list){
+      grid.innerHTML = '';
+      if(!list.length){ empty.hidden = false; return; }
+      empty.hidden = true;
+      list.forEach(s => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <img class="thumb" alt="${s.name}" loading="lazy" src="${s.image}">
+          <div class="meta">
+            <h3 class="title">${s.name}</h3>
+            <div>
+              <span class="badge">${s.tier}</span>
+              <span class="badge">${s.year}</span>
+            </div>
+            <div class="row">
+              <span class="tag">Độ yêu thích</span>
+              <span class="stars">${'★'.repeat(Math.round(s.rating/2))}</span>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function apply(){
+      const qv = q.value.trim().toLowerCase();
+      let list = skins.filter(s => s.name.toLowerCase().includes(qv));
+      const ft = filter.value;
+      if(ft !== 'all') list = list.filter(s => s.tier === ft);
+      const sv = sort.value;
+      list.sort((a,b)=>{
+        if(sv==='rating') return b.rating - a.rating;
+        if(sv==='year') return b.year - a.year;
+        if(sv==='tier') return a.tier.localeCompare(b.tier);
+        return 0;
+      });
+      render(list);
+    }
+
+    q.addEventListener('input', apply);
+    sort.addEventListener('change', apply);
+    filter.addEventListener('change', apply);
+
+    // Khởi tạo
+    apply();
+  </script>
+</body>
+</html>
